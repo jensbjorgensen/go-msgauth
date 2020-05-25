@@ -257,9 +257,9 @@ func verify(h header, r io.Reader, sigField, sigValue string, options *VerifyOpt
 	for _, method := range methods {
 		if query, ok := queryMethods[QueryMethod(method)]; ok {
 			if options != nil {
-				res, err = query(verif.Domain, stripWhitespace(params["s"]), options.LookupTXT)
+				res, err = query(verif.Domain, strings.TrimSpace(params["s"]), options.LookupTXT)
 			} else {
-				res, err = query(verif.Domain, stripWhitespace(params["s"]), nil)
+				res, err = query(verif.Domain, strings.TrimSpace(params["s"]), nil)
 			}
 			break
 		}
@@ -404,7 +404,7 @@ func verify(h header, r io.Reader, sigField, sigValue string, options *VerifyOpt
 func parseTagList(s string) []string {
 	tags := strings.Split(s, ":")
 	for i, t := range tags {
-		tags[i] = stripWhitespace(t)
+		tags[i] = strings.TrimSpace(t)
 	}
 	return tags
 }
